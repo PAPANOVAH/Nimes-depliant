@@ -3,75 +3,686 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Découvrez Nîmes - Événement Incontournable</title>
+    <title>Nîmes & Co : L'Aventure Romaine</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary-color: #c0392b; /* Rouge Arènes */
-            --secondary-color: #f39c12; /* Doré Soleil */
-            --text-color: #2c3e50;
-            --bg-color: #fdfbf7;
-            --card-bg: #ffffff;
+            --primary: #8B6F47;
+            --secondary: #A0826D;
+            --accent: #C97C5A;
+            --light-bg: #E8DCC4;
+            --dark-text: #3D3D3D;
+            --cream: #F5F1E8;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-text);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #e74c3c);
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            scroll-snap-align: start;
+        }
+
+        .page-content {
+            max-width: 900px;
+            width: 100%;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* PAGE 1 - COUVERTURE */
+        .page-cover {
+            background: linear-gradient(135deg, #7A5C3E 0%, #9B7E62 100%);
             color: white;
             text-align: center;
-            padding: 3rem 1rem;
             position: relative;
             overflow: hidden;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin: 0;
+        .page-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="100" height="100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23pattern)"/></svg>');
+            pointer-events: none;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             font-weight: 700;
+        }
+
+        .cover-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .cover-image {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 2rem auto;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .cover-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 2rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #B86B4A;
+        }
+
+        .cover-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        /* PAGE 2 - INTRO */
+        .page-intro {
+            background-color: var(--cream);
+        }
+
+        .page-section {
+            background-color: var(--cream);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        header p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            opacity: 0.9;
+        h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+        h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 2rem;
-            margin-bottom: 2rem;
+        p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .intro-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: transform 0.3s ease;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .intro-card h3 {
+            margin-top: 0;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+
+        /* MONUMENT PAGES */
+        .monument-page {
+            background-color: var(--cream);
+        }
+
+        .monument-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .monument-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--light-bg), #DDD0C0);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .monument-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .monument-text h2 {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+        }
+
+        /* EXPERIENCES PAGE */
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .experience-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* SURROUNDINGS PAGE */
+        .surroundings-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .surrounding-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .surrounding-item:nth-child(even) {
+            grid-template-columns: 1fr 300px;
+            direction: rtl;
+        }
+
+        .surrounding-item > * {
+            direction: ltr;
+        }
+
+        .surrounding-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--light-bg), #DDD0C0);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .surrounding-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* TIPS PAGE */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent);
+        }
+
+        .tip-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* INFO PAGE */
+        .info-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent);
+        }
+
+        .info-section h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* FINAL PAGE */
+        .page-final {
+            background: linear-gradient(135deg, #8B6F47 0%, #7A5C3E 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .page-final h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .page-final p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 2;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 2rem auto;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .final-cta {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .monument-container,
+            .surrounding-item {
+                grid-template-columns: 1fr;
+            }
+
+            .surrounding-item:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .monument-image,
+            .surrounding-image {
+                height: 300px;
+            }
+
+            .cover-content h1 {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .emoji {
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Découvrez Nîmes</h1>
-        <p>Événement Incontournable</p>
-    </header>
-    
-    <div class="container">
-        <div class="card">
-            <h2>Bienvenue à Nîmes</h2>
-            <p>Explorez la richesse historique et culturelle de cette magnifique ville.</p>
+
+<!-- PAGE 1: COUVERTURE -->
+<div class="page page-cover">
+    <div class="page-content cover-content">
+        <h1>🏛️ Nîmes & Co</h1>
+        <h2>L'Aventure Romaine</h2>
+        <p>Le Guide Ultime pour les Curieux (et les Fans d'Histoire)</p>
+        <div class="cover-image">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop" alt="Arènes de Nîmes">
+        </div>
+        <p><strong>Oublie les cours d'histoire ennuyeux.</strong><br>Ici, on plonge dans la peau des gladiateurs, on gravit les temples et on vit des moments magiques.</p>
+        <button class="cta-button">👉 Déplie et découvre !</button>
+    </div>
+</div>
+
+<!-- PAGE 2: INTRO -->
+<div class="page page-intro">
+    <div class="page-content">
+        <h1>👋 Salut l'explorateur !</h1>
+        <p>Tu pensais que Nîmes c'était juste des vieilles pierres ? <span class="highlight">Oups, erreur de jeunesse !</span></p>
+        <p>Bienvenue dans la <span class="highlight">Capitale de la Provence Romaine</span>.</p>
+        
+        <h2>Pourquoi c'est trop cool ?</h2>
+        <div class="intro-grid">
+            <div class="intro-card">
+                <h3>🏟️ Les Arènes</h3>
+                <p>Plus grandes que celles du Colisée pour certains ! Un amphithéâtre du 1er siècle qui accueille 20 000 personnes.</p>
+            </div>
+            <div class="intro-card">
+                <h3>🏛️ La Maison Carrée</h3>
+                <p>Le temple le plus intact du monde. Un chef-d'œuvre de l'architecture romaine antique.</p>
+            </div>
+            <div class="intro-card">
+                <h3>🗼 La Tour Magne</h3>
+                <p>Pour un selfie avec une vue à couper le souffle. Une tour de défense romaine géante.</p>
+            </div>
+        </div>
+        
+        <p style="margin-top: 2rem; font-size: 1.1rem;"><strong>Le mot de la fin :</strong></p>
+        <p>Ici, l'histoire n'est pas dans les livres, elle est <span class="highlight">sous tes pieds</span>. Prêt à marcher dans les pas des Romains ?</p>
+    </div>
+</div>
+
+<!-- PAGE 3: LES ARÈNES -->
+<div class="page monument-page">
+    <div class="page-content">
+        <div class="monument-container">
+            <div>
+                <div class="monument-image">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=500&h=400&fit=crop" alt="Arènes de Nîmes">
+                </div>
+            </div>
+            <div class="monument-text">
+                <h2>🥊 Les Arènes de Nîmes</h2>
+                <h3>C'est quoi ?</h3>
+                <p>Un amphithéâtre du 1er siècle qui accueille 20 000 personnes ! Un édifice impressionnant qui rivalise avec les plus beaux amphithéâtres romains.</p>
+                
+                <h3>Le truc de fou :</h3>
+                <p>Rentre dans les <span class="highlight">hypogées</span> (les couloirs souterrains) où les bêtes et les gladiateurs attendaient leur heure. C'est une plongée directe dans l'histoire !</p>
+                
+                <h3>Astuce :</h3>
+                <p>Va-y au coucher du soleil, la lumière dorée est juste... <span class="highlight">magique</span>. Les pierres prennent une teinte orangée sublime.</p>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- PAGE 4: MAISON CARRÉE -->
+<div class="page monument-page">
+    <div class="page-content">
+        <div class="monument-container">
+            <div class="monument-text">
+                <h2>🏛️ La Maison Carrée</h2>
+                <h3>C'est quoi ?</h3>
+                <p>Un temple dédié à des princes romains, datant du 1er siècle après J.-C. C'est l'un des temples romains les mieux conservés au monde.</p>
+                
+                <h3>Le truc de fou :</h3>
+                <p>Il est <span class="highlight">parfaitement conservé</span>. C'est le modèle de tous les temples qu'on a construits après ! Son architecture a inspiré des générations d'architectes.</p>
+                
+                <h3>Photo :</h3>
+                <p>Pose juste devant, tu vas ressembler à un <span class="highlight">sénateur</span>. Les colonnes doriques et l'escalier monumental sont parfaits pour les photos Instagram !</p>
+            </div>
+            <div>
+                <div class="monument-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="Maison Carrée">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 5: TOUR MAGNE -->
+<div class="page monument-page">
+    <div class="page-content">
+        <div class="monument-container">
+            <div>
+                <div class="monument-image">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe3e?w=500&h=400&fit=crop" alt="Tour Magne">
+                </div>
+            </div>
+            <div class="monument-text">
+                <h2>🗼 La Tour Magne</h2>
+                <h3>C'est quoi ?</h3>
+                <p>Une tour de défense romaine géante qui domine la ville. Construite au 1er siècle avant J.-C., elle témoigne de l'importance stratégique de Nîmes.</p>
+                
+                <h3>Le truc de fou :</h3>
+                <p>Monte les marches pour voir <span class="highlight">toute la ville</span> et la campagne alentour. La vue panoramique est spectaculaire, surtout au coucher du soleil !</p>
+                
+                <h3>Ambiance :</h3>
+                <p>Vibe <span class="highlight">"mystérieuse" garantie</span>. Les ruines, les pierres anciennes et l'isolement du sommet créent une atmosphère unique et mémorable.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 6: EXPÉRIENCES -->
+<div class="page">
+    <div class="page-content">
+        <h1>🎭 Vive l'Immersion !</h1>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">(Pas juste regarder, mais <span class="highlight">vivre</span> l'histoire)</p>
+        
+        <div class="experiences-grid">
+            <div class="experience-card">
+                <h3>👻 La Visite "Héritage des Arènes"</h3>
+                <p><strong>Le concept :</strong> Une heure en <span class="highlight">costume d'époque</span> avec un guide qui te raconte l'histoire.</p>
+                <p><strong>Pour qui ?</strong> Les fans de cinéma et de rôle-play !</p>
+                <p><strong>Bonus :</strong> Tu entres dans l'ambiance, pas juste les yeux.</p>
+            </div>
+            
+            <div class="experience-card">
+                <h3>🌙 La Nuit des Gladiatrices</h3>
+                <p><strong>Le concept :</strong> Retour aux origines avec <span class="highlight">Achille la Gladiatrix</span>.</p>
+                <p><strong>L'ambiance :</strong> Torches, ombres, et histoires de dieux.</p>
+                <p><strong>C'est quand ?</strong> En soirée, c'est le moment le plus <span class="highlight">magique</span> de la ville.</p>
+            </div>
+            
+            <div class="experience-card">
+                <h3>🎒 Pour les groupes (Écoles/Amis)</h3>
+                <p><strong>Les thèmes :</strong> "Bacchus et Licinius" (la vie quotidienne) ou "Pangolin et Gladius" (les gladiateurs).</p>
+                <p><strong>C'est ludique !</strong> Tu apprends en riant (et en jouant).</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 7: ALENTOURS -->
+<div class="page">
+    <div class="page-content">
+        <h1>🚗 À 15-30 MIN DE NÎMES : LES ALENTOURS</h1>
+        
+        <div class="surroundings-grid">
+            <div class="surrounding-item">
+                <div class="surrounding-image">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&h=250&fit=crop" alt="Pont du Gard">
+                </div>
+                <div>
+                    <h3>🌉 Le Pont du Gard</h3>
+                    <p><strong>Le Pitch :</strong> Un pont en aqueduc romain <span class="highlight">COLOSSAL</span>.</p>
+                    <p><strong>Le Plan :</strong> Fais une balade en bas (si tu as le courage !) ou une pique-nique au bord de l'eau.</p>
+                    <p><strong>C'est :</strong> Un chef-d'œuvre de l'ingénierie antique.</p>
+                </div>
+            </div>
+            
+            <div class="surrounding-item">
+                <div class="surrounding-image">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300&h=250&fit=crop" alt="Théâtre d'Orange">
+                </div>
+                <div>
+                    <h3>🎭 Le Théâtre d'Orange</h3>
+                    <p><strong>Le Pitch :</strong> Un théâtre avec un mur de scène <span class="highlight">énorme</span> qui tient encore debout.</p>
+                    <p><strong>Le Plan :</strong> Vérifie s'il y a des concerts ou des pièces en été !</p>
+                    <p><strong>C'est :</strong> L'endroit idéal pour les amateurs de musique classique.</p>
+                </div>
+            </div>
+            
+            <div class="surrounding-item">
+                <div class="surrounding-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=250&fit=crop" alt="Les Baux-de-Provence">
+                </div>
+                <div>
+                    <h3>🏰 Les Baux-de-Provence</h3>
+                    <p><strong>Le Pitch :</strong> Un village perché <span class="highlight">médiéval</span> avec des vues à couper le souffle.</p>
+                    <p><strong>Le Plan :</strong> Perds-toi dans les ruelles et mange une crêpe au miel.</p>
+                    <p><strong>C'est :</strong> La Provence dans toute sa gloire (et très photo-génique).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 8: ASTUCES & INFOS -->
+<div class="page">
+    <div class="page-content">
+        <h1>💡 Les Astuces de Pro</h1>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <h3>🎟️ Comment réserver ?</h3>
+                <p>Pour les <span class="highlight">visites guidées</span> et <span class="highlight">nocturnes</span>, réserve en ligne avant ! Les places partent vite.</p>
+                <p>Les <span class="highlight">visites libres</span> : Achète ton billet à l'entrée ou en ligne pour éviter la file.</p>
+            </div>
+            
+            <div class="tip-card">
+                <h3>🎒 Quoi mettre dans le sac ?</h3>
+                <ul>
+                    <li><strong>Bottes de marche :</strong> Obligatoires pour les visites nocturnes</li>
+                    <li><strong>Casquette & Crème solaire :</strong> Nîmes, c'est le soleil !</li>
+                    <li><strong>Powerbank :</strong> Pour le selfie parfait</li>
+                    <li><strong>Petit sac à dos :</strong> Pour tes souvenirs</li>
+                </ul>
+            </div>
+            
+            <div class="tip-card">
+                <h3>💰 Budget & Horaires</h3>
+                <p>Vérifie les tarifs sur le site officiel (souvent des réductions pour les -26 ans !).</p>
+                <p>Les sites sont ouverts toute l'année, mais <span class="highlight">vérifie les fermetures exceptionnelles</span>.</p>
+            </div>
+        </div>
+
+        <div class="info-section" style="margin-top: 3rem;">
+            <h3>📍 INFOS PRATIQUES</h3>
+            <p><strong>🏛️ Les Sites Clés :</strong></p>
+            <ul>
+                <li><strong>Arènes de Nîmes :</strong> Place de la Comédie</li>
+                <li><strong>Maison Carrée :</strong> Place de la Maison Carrée</li>
+                <li><strong>Tour Magne :</strong> Boulevard Gambetta</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>🚌 Comment venir ?</h3>
+            <ul>
+                <li><strong>Train (TGV) :</strong> Gare de Nîmes (direct depuis Paris, Lyon, Marseille)</li>
+                <li><strong>Bus :</strong> Ligne 30, 50, 60 (réseau Transports de Nîmes)</li>
+                <li><strong>Voiture :</strong> Parking "Arènes" ou "Maison Carrée" (payant mais pratique)</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>🌐 Où trouver plus d'infos ?</h3>
+            <p><strong>Site Web :</strong> Office de Tourisme de Nîmes (recherchez "Nîmes Tourisme" sur Google)</p>
+            <p><strong>Réseaux Sociaux :</strong> #NimesRomaine #ArènesNîmes</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 9: FINALE -->
+<div class="page page-final">
+    <div class="page-content">
+        <h1>🚀 PRÊT À PARTIR ?</h1>
+        <p>Nîmes, ce n'est pas juste une ville, c'est une <span class="highlight">expérience</span>.</p>
+        <p>Que tu sois fan d'histoire, de photo, ou juste de bonne ambiance, tu vas aimer.</p>
+        
+        <p style="font-size: 1.2rem; margin-top: 2rem; margin-bottom: 1rem;"><strong>Ne laisse pas les Romains avoir le dernier mot.</strong></p>
+        <p style="font-size: 1.1rem;">Viens, explore, et raconte ton histoire !</p>
+        
+        <div class="qr-placeholder">
+            [QR Code]
+        </div>
+        
+        <p class="final-cta">À très vite dans la cité des gladiateurs ! 🏛️✨</p>
+    </div>
+</div>
+
 </body>
 </html>
