@@ -27,19 +27,17 @@
             line-height: 1.6;
         }
 
-        .page {
+        .page-container {
             min-height: 100vh;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            scroll-snap-align: start;
+            animation: fadeIn 0.8s ease-in;
         }
 
-        .page-content {
-            max-width: 900px;
-            width: 100%;
-            animation: fadeIn 0.8s ease-in;
+        .page-container.active {
+            display: flex;
         }
 
         @keyframes fadeIn {
@@ -51,6 +49,58 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .page-content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* NAVIGATION */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .nav-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-button:hover {
+            background-color: #B86B4A;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background-color: #CCC;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .page-counter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
         }
 
         /* PAGE 1 - COUVERTURE */
@@ -109,24 +159,6 @@
             object-fit: cover;
         }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 2rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background-color: #B86B4A;
-        }
-
         .cover-content p {
             font-size: 1.1rem;
             margin-bottom: 1rem;
@@ -135,10 +167,6 @@
 
         /* PAGE 2 - INTRO */
         .page-intro {
-            background-color: var(--cream);
-        }
-
-        .page-section {
             background-color: var(--cream);
         }
 
@@ -412,6 +440,22 @@
             h2 {
                 font-size: 1.5rem;
             }
+
+            .nav-buttons {
+                bottom: 10px;
+                padding: 0.8rem 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .page-counter {
+                font-size: 0.9rem;
+                margin: 0 0.5rem;
+            }
         }
 
         .emoji {
@@ -422,7 +466,7 @@
 <body>
 
 <!-- PAGE 1: COUVERTURE -->
-<div class="page page-cover">
+<div class="page-container page-cover active" id="page1">
     <div class="page-content cover-content">
         <h1>🏛️ Nîmes & Co</h1>
         <h2>L'Aventure Romaine</h2>
@@ -431,12 +475,11 @@
             <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop" alt="Arènes de Nîmes">
         </div>
         <p><strong>Oublie les cours d'histoire ennuyeux.</strong><br>Ici, on plonge dans la peau des gladiateurs, on gravit les temples et on vit des moments magiques.</p>
-        <button class="cta-button">👉 Déplie et découvre !</button>
     </div>
 </div>
 
 <!-- PAGE 2: INTRO -->
-<div class="page page-intro">
+<div class="page-container page-intro" id="page2">
     <div class="page-content">
         <h1>👋 Salut l'explorateur !</h1>
         <p>Tu pensais que Nîmes c'était juste des vieilles pierres ? <span class="highlight">Oups, erreur de jeunesse !</span></p>
@@ -464,7 +507,7 @@
 </div>
 
 <!-- PAGE 3: LES ARÈNES -->
-<div class="page monument-page">
+<div class="page-container monument-page" id="page3">
     <div class="page-content">
         <div class="monument-container">
             <div>
@@ -488,7 +531,7 @@
 </div>
 
 <!-- PAGE 4: MAISON CARRÉE -->
-<div class="page monument-page">
+<div class="page-container monument-page" id="page4">
     <div class="page-content">
         <div class="monument-container">
             <div class="monument-text">
@@ -512,7 +555,7 @@
 </div>
 
 <!-- PAGE 5: TOUR MAGNE -->
-<div class="page monument-page">
+<div class="page-container monument-page" id="page5">
     <div class="page-content">
         <div class="monument-container">
             <div>
@@ -536,7 +579,7 @@
 </div>
 
 <!-- PAGE 6: EXPÉRIENCES -->
-<div class="page">
+<div class="page-container" id="page6">
     <div class="page-content">
         <h1>🎭 Vive l'Immersion !</h1>
         <p style="font-size: 1.1rem; margin-bottom: 2rem;">(Pas juste regarder, mais <span class="highlight">vivre</span> l'histoire)</p>
@@ -566,7 +609,7 @@
 </div>
 
 <!-- PAGE 7: ALENTOURS -->
-<div class="page">
+<div class="page-container" id="page7">
     <div class="page-content">
         <h1>🚗 À 15-30 MIN DE NÎMES : LES ALENTOURS</h1>
         
@@ -611,7 +654,7 @@
 </div>
 
 <!-- PAGE 8: ASTUCES & INFOS -->
-<div class="page">
+<div class="page-container" id="page8">
     <div class="page-content">
         <h1>💡 Les Astuces de Pro</h1>
         
@@ -667,7 +710,7 @@
 </div>
 
 <!-- PAGE 9: FINALE -->
-<div class="page page-final">
+<div class="page-container page-final" id="page9">
     <div class="page-content">
         <h1>🚀 PRÊT À PARTIR ?</h1>
         <p>Nîmes, ce n'est pas juste une ville, c'est une <span class="highlight">expérience</span>.</p>
@@ -683,6 +726,66 @@
         <p class="final-cta">À très vite dans la cité des gladiateurs ! 🏛️✨</p>
     </div>
 </div>
+
+<!-- NAVIGATION -->
+<div class="nav-buttons">
+    <button class="nav-button" id="prevBtn" onclick="previousPage()">← Précédent</button>
+    <div class="page-counter">
+        <span id="pageNum">1</span> / <span id="totalPages">9</span>
+    </div>
+    <button class="nav-button" id="nextBtn" onclick="nextPage()">Suivant →</button>
+</div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 9;
+
+    function showPage(page) {
+        // Masquer toutes les pages
+        for (let i = 1; i <= totalPages; i++) {
+            const pageEl = document.getElementById(`page${i}`);
+            pageEl.classList.remove('active');
+        }
+
+        // Afficher la page active
+        const activePage = document.getElementById(`page${page}`);
+        activePage.classList.add('active');
+
+        // Mettre à jour le compteur
+        document.getElementById('pageNum').textContent = page;
+
+        // Activer/Désactiver les boutons
+        document.getElementById('prevBtn').disabled = page === 1;
+        document.getElementById('nextBtn').disabled = page === totalPages;
+
+        // Scroll en haut (optionnel, pour voir la page entière)
+        window.scrollTo(0, 0);
+    }
+
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    }
+
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    }
+
+    // Initialiser
+    document.getElementById('totalPages').textContent = totalPages;
+    showPage(1);
+
+    // Clavier : Flèches gauche/droite et Enter
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextPage();
+        if (e.key === 'ArrowLeft') previousPage();
+    });
+</script>
 
 </body>
 </html>
